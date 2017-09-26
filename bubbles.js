@@ -170,10 +170,13 @@ setTimeout(function () {
 
 	// Add event listener for `click` events.
 	canvas.addEventListener('click', function (event) {
-		var x = event.pageX,
-			y = event.pageY;
+		var clickX = event.pageX,
+			clickY = event.pageY;
+			registerInput(clickX, clickY);
+	}, false);
+
+	function registerInput(x, y){
 		totalClicks++;
-		// Collision detection between clicked offset and element.
 		for (var i = 0; i < objects.length; i++) {
 			if (y > (objects[i].y - objects[i].radius) && y < (objects[i].y + objects[i].radius) && x > (objects[i].x - objects[i].radius) && x < (objects[i].x + objects[i].radius)) {
 				updateScore(50 - objects[i].radius);
@@ -187,9 +190,7 @@ setTimeout(function () {
 			} else {
 				updateScore(0);
 			}
-		}
-
-	}, false);
+	}
 
 	function updateScore(points) {
 		totalPoints += parseInt(points);
@@ -208,6 +209,38 @@ setTimeout(function () {
 				object.update();
 			}
 		});
+	}
+
+	// Set up touch events for mobile, etc
+	canvas.addEventListener("touchstart", function (e) {
+		mousePos = getTouchPos(canvas, e);
+		var touch = e.touches[0];
+		var mouseEvent = new MouseEvent("mousedown", {
+			clientX: touch.clientX,
+			clientY: touch.clientY
+		});
+		canvas.dispatchEvent(mouseEvent);
+	}, false);
+	canvas.addEventListener("touchend", function (e) {
+		var mouseEvent = new MouseEvent("mouseup", {});
+		canvas.dispatchEvent(mouseEvent);
+	}, false);
+	canvas.addEventListener("touchmove", function (e) {
+		var touch = e.touches[0];
+		var mouseEvent = new MouseEvent("mousemove", {
+			clientX: touch.clientX,
+			clientY: touch.clientY
+		});
+		canvas.dispatchEvent(mouseEvent);
+	}, false);
+
+	// Get the position of a touch relative to the canvas
+	function getTouchPos(canvasDom, touchEvent) {
+		var rect = canvasDom.getBoundingClientRect();
+		return {
+			x: touchEvent.touches[0].clientX - rect.left,
+			y: touchEvent.touches[0].clientY - rect.top
+		};
 	}
 
 	init();
