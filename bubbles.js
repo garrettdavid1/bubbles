@@ -219,6 +219,7 @@ setTimeout(function () {
 			clientX: touch.clientX,
 			clientY: touch.clientY
 		});
+		registerInput(touch.clientX, touch.clientY);
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
 	canvas.addEventListener("touchend", function (e) {
