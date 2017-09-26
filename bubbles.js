@@ -152,7 +152,7 @@ setTimeout(function () {
 			$('#canvas').css('pointer-events', 'none');
 			$('#finalScore').show();
 			$('#scoreboard').hide();
-			if (totalPoints < 100) {
+			if (totalPoints > 0 && totalPoints < 100){
 				$('.rating').text('You can do better than that...');
 			} else if (totalPoints >= 100 && totalPoints < 300) {
 				$('.rating').text('Not too shabby, grasshopper.');
@@ -224,6 +224,7 @@ setTimeout(function () {
 	}, false);
 	canvas.addEventListener("touchend", function (e) {
 		var mouseEvent = new MouseEvent("mouseup", {});
+		registerInput(touch.clientX, touch.clientY);
 		canvas.dispatchEvent(mouseEvent);
 	}, false);
 	canvas.addEventListener("touchmove", function (e) {
