@@ -24,8 +24,6 @@ setTimeout(function () {
 		throw new Error('Bad Hex');
 	}
 
-
-	// Variables
 	var mouse = {
 		x: innerWidth / 2,
 		y: innerHeight / 2
@@ -40,7 +38,6 @@ setTimeout(function () {
 	];
 
 
-	// Event Listeners
 	addEventListener('mousemove', function () {
 		mouse.x = event.clientX;
 		mouse.y = event.clientY;
@@ -54,7 +51,6 @@ setTimeout(function () {
 	});
 
 
-	// Utility Functions
 	function randomIntFromRange(min, max) {
 		return Math.floor(Math.random() * (max - min + 1) + min);
 	}
@@ -64,7 +60,6 @@ setTimeout(function () {
 	}
 
 
-	// Objects
 	function Circle(x, y, dx, dy, radius, color, strokeStyle) {
 		this.x = x;
 		this.y = y;
@@ -114,14 +109,14 @@ setTimeout(function () {
 			c.stroke();
 			c.closePath();
 		};
-
-		// this.pop = function(){
-		// 	this = '';
-		// } 
 	}
 
+	if(canvas.width < 400){
+		var radiusMultiplier = 200;
+	} else{
+		var radiusMultiplier = 50;
+	}
 
-	// Implementation
 	var objects;
 	var radius;
 	var x;
@@ -134,7 +129,7 @@ setTimeout(function () {
 		objects = [];
 
 		for (var i = 0; i < 200; i++) {
-			radius = Math.random() * 50;
+			radius = Math.random() * radiusMultiplier;
 			x = randomIntFromRange(radius, window.innerWidth - radius);
 			y = randomIntFromRange(radius, window.innerHeight + radius);
 			dy = randomIntFromRange(1, 5);
@@ -149,6 +144,7 @@ setTimeout(function () {
 	var totalClicks = 0;
 	var score = 0;
 	var timeLeft = 10;
+	
 
 	var gameTimer = setInterval(function () {
 		$('.timeLeft').text(timeLeft);
@@ -181,7 +177,7 @@ setTimeout(function () {
 		for (var i = 0; i < objects.length; i++) {
 			if (y > (objects[i].y - objects[i].radius) && y < (objects[i].y + objects[i].radius) && x > (objects[i].x - objects[i].radius) && x < (objects[i].x + objects[i].radius)) {
 				updateScore(50 - objects[i].radius);
-				radius = Math.random() * 50;
+				radius = Math.random() * radiusMultiplier;
 				x = randomIntFromRange(radius, window.innerWidth - radius);
 				dy = randomIntFromRange(1, 5);
 				dx = randomIntFromRange(-3, 3);
