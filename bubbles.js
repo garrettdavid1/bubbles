@@ -264,4 +264,5 @@ setTimeout(function () {
 
 	init();
 	animate();
+	console.log();
 }, 500);
