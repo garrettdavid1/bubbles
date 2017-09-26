@@ -11,7 +11,7 @@ setTimeout(function () {
 	canvas.style.top = 0;
 	canvas.style.left = 0;
 
-	var hexToRgba = function(hex) {
+	var hexToRgba = function (hex) {
 		var c;
 		if (/^#([A-Fa-f0-9]{3}){1,2}$/.test(hex)) {
 			c = hex.substring(1).split('');
@@ -111,9 +111,9 @@ setTimeout(function () {
 		};
 	}
 
-	if(canvas.width < 400){
+	if (canvas.width < 400) {
 		var radiusMultiplier = 200;
-	} else{
+	} else {
 		var radiusMultiplier = 50;
 	}
 
@@ -144,7 +144,7 @@ setTimeout(function () {
 	var totalClicks = 0;
 	var score = 0;
 	var timeLeft = 10;
-	
+
 
 	var gameTimer = setInterval(function () {
 		$('.timeLeft').text(timeLeft);
@@ -152,7 +152,7 @@ setTimeout(function () {
 			$('#canvas').css('pointer-events', 'none');
 			$('#finalScore').show();
 			$('#scoreboard').hide();
-			if (totalPoints > 0 && totalPoints < 100){
+			if (totalPoints > 0 && totalPoints < 100) {
 				$('.rating').text('You can do better than that...');
 			} else if (totalPoints >= 100 && totalPoints < 300) {
 				$('.rating').text('Not too shabby, grasshopper.');
@@ -172,10 +172,10 @@ setTimeout(function () {
 	canvas.addEventListener('click', function (event) {
 		var clickX = event.pageX,
 			clickY = event.pageY;
-			registerInput(clickX, clickY);
+		registerInput(clickX, clickY);
 	}, false);
 
-	function registerInput(x, y){
+	function registerInput(x, y) {
 		totalClicks++;
 		for (var i = 0; i < objects.length; i++) {
 			if (y > (objects[i].y - objects[i].radius) && y < (objects[i].y + objects[i].radius) && x > (objects[i].x - objects[i].radius) && x < (objects[i].x + objects[i].radius)) {
@@ -190,6 +190,7 @@ setTimeout(function () {
 			} else {
 				updateScore(0);
 			}
+		}
 	}
 
 	function updateScore(points) {
@@ -245,21 +246,21 @@ setTimeout(function () {
 	}
 
 	// Prevent scrolling when touching the canvas
-document.body.addEventListener("touchstart", function (e) {
-	if (e.target == canvas) {
-	  e.preventDefault();
-	}
-  }, false);
-  document.body.addEventListener("touchend", function (e) {
-	if (e.target == canvas) {
-	  e.preventDefault();
-	}
-  }, false);
-  document.body.addEventListener("touchmove", function (e) {
-	if (e.target == canvas) {
-	  e.preventDefault();
-	}
-  }, false);
+	document.body.addEventListener("touchstart", function (e) {
+		if (e.target == canvas) {
+			e.preventDefault();
+		}
+	}, false);
+	document.body.addEventListener("touchend", function (e) {
+		if (e.target == canvas) {
+			e.preventDefault();
+		}
+	}, false);
+	document.body.addEventListener("touchmove", function (e) {
+		if (e.target == canvas) {
+			e.preventDefault();
+		}
+	}, false);
 
 	init();
 	animate();
